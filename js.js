@@ -5,7 +5,7 @@ var sliderItems = Array.from(document.querySelectorAll('.slider-container img'))
 var length = sliderItems.length;
 
  // set current slide
- var currentSlideNumber=2;
+ var currentSlideNumber=5;
 
  // get slide number 
  var sliderNumber = document.getElementById('slide-number')
@@ -71,6 +71,17 @@ function theChecker(){
 
     paginaUl.children[currentSlideNumber-1].classList.add('active')
     
+    // check if current slide is number 1 or the last one
+    if(currentSlideNumber == 1){
+        prev.classList.add('disabled')
+    }
+    else
+    prev.classList.remove('disabled')
+    if(currentSlideNumber == length){
+        next.classList.add('disabled')
+    }
+    else
+    next.classList.remove('disabled')
 }
 
 // remove All Active Classes From Img
