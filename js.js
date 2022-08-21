@@ -5,7 +5,7 @@ var sliderItems = Array.from(document.querySelectorAll('.slider-container img'))
 var length = sliderItems.length;
 
  // set current slide
- var currentSlideNumber=5;
+ var currentSlideNumber=1;
 
  // get slide number 
  var sliderNumber = document.getElementById('slide-number')
@@ -18,13 +18,15 @@ var length = sliderItems.length;
   next.onclick=nextImage;
 
 function nextImage(){
-    console.log("next");
+    currentSlideNumber++,
+    theChecker();
 }
 
 prev.onclick = prevItem;
 
 function prevItem(){
-    console.log('prev');
+    currentSlideNumber--;
+    theChecker();
 }
 
 // create the ul element
@@ -54,7 +56,12 @@ indicators.appendChild(paginaUl)
 
 // Get the slider bullets | array.from (ES6 feature)
 var sliderBullets = Array.from(document.querySelectorAll('#paginUl li')) ;
-
+sliderBullets.forEach(function(bullet){
+    bullet.onclick = function(){
+        currentSlideNumber = parseInt(this.getAttribute('data-index'));
+        theChecker();
+    }
+})
 
 theChecker();
 // Create the checker function
@@ -74,17 +81,24 @@ function theChecker(){
     // check if current slide is number 1 or the last one
     if(currentSlideNumber == 1){
         prev.classList.add('disabled')
+        prev.setAttribute('disabled','true')
     }
-    else
-    prev.classList.remove('disabled')
+    else{
+        prev.classList.remove('disabled');
+        prev.removeAttribute('disabled')
+    }
+    
     if(currentSlideNumber == length){
         next.classList.add('disabled')
+        next.setAttribute('disabled','true')
     }
-    else
-    next.classList.remove('disabled')
+    else{
+        next.classList.remove('disabled')
+        next.removeAttribute('disabled','true')
+    }
 }
 
-// remove All Active Classes From Img
+// remove All Active Classes From Img and bullets
 function removeAllActiveClasses(){
     sliderItems.forEach(function(img){
         img.classList.remove('active');
